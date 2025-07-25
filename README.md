@@ -1,162 +1,151 @@
-
 <!--- mdformat-toc start --slug=github --->
 
 <!---
-!!! IF EDITING THE README, ENSURE TO COPY THE WHOLE FILE TO index.md in `/docs/` AND REMOVE THE REFERENCES TO ReadTheDocs THERE.
+!!! README dosyasını düzenliyorsanız, dosyanın tamamını `/docs/` içindeki index.md dosyasına kopyalayın ve ReadTheDocs ile ilgili referansları oradan kaldırın.
 --->
 
 <div align="center">
 
 # spotDL v4
 
-**spotDL** finds songs from Spotify playlists on YouTube and downloads them - along with album art, lyrics and metadata.
+**spotDL**, Spotify çalma listelerindeki şarkıları YouTube'da bulur ve indirir - albüm kapağı, şarkı sözleri ve meta verilerle birlikte.
 
-
-[![MIT License](https://img.shields.io/github/license/spotdl/spotify-downloader?color=44CC11&style=flat-square)](https://github.com/spotDL/spotify-downloader/blob/master/LICENSE)
-[![PyPI version](https://img.shields.io/pypi/pyversions/spotDL?color=%2344CC11&style=flat-square)](https://pypi.org/project/spotdl/)
-[![PyPi downloads](https://img.shields.io/pypi/dw/spotDL?label=downloads@pypi&color=344CC11&style=flat-square)](https://pypi.org/project/spotdl/)
-![Contributors](https://img.shields.io/github/contributors/spotDL/spotify-downloader?style=flat-square)
+[![MIT Lisansı](https://img.shields.io/github/license/spotdl/spotify-downloader?color=44CC11&style=flat-square)](https://github.com/spotDL/spotify-downloader/blob/master/LICENSE)
+[![PyPI sürümü](https://img.shields.io/pypi/pyversions/spotDL?color=%2344CC11&style=flat-square)](https://pypi.org/project/spotdl/)
+[![PyPi indirme](https://img.shields.io/pypi/dw/spotDL?label=downloads@pypi&color=344CC11&style=flat-square)](https://pypi.org/project/spotdl/)
+![Katkıda Bulunanlar](https://img.shields.io/github/contributors/spotDL/spotify-downloader?style=flat-square)
 [![Discord](https://img.shields.io/discord/771628785447337985?label=discord&logo=discord&style=flat-square)](https://discord.gg/xCa23pwJWY)
 
-> spotDL: The fastest, easiest and most accurate command-line music downloader.
+> spotDL: En hızlı, en kolay ve en doğru komut satırı müzik indiricisi.
 </div>
 
 ______________________________________________________________________
-**[Read the documentation on ReadTheDocs!](https://spotdl.readthedocs.io)**
+**[ReadTheDocs üzerinden dokümantasyonu okuyun!](https://spotdl.readthedocs.io)**
 ______________________________________________________________________
 
+## Kurulum
 
-## Installation
+Daha fazla detay için [Kurulum Rehberi](https://spotdl.rtfd.io/en/latest/installation/) adresine bakabilirsiniz.
 
-Refer to our [Installation Guide](https://spotdl.rtfd.io/en/latest/installation/) for more details.
+### Python (Önerilen Yöntem)
+  - _spotDL_’yi `pip install spotdl` komutu ile kurabilirsiniz.
+  - spotDL’i güncellemek için `pip install --upgrade spotdl` komutunu kullanın.
 
-### Python (Recommended Method)
-  - _spotDL_ can be installed by running `pip install spotdl`.
-  - To update spotDL run `pip install --upgrade spotdl`
-
-  > On some systems you might have to change `pip` to `pip3`.
+  > Bazı sistemlerde `pip` yerine `pip3` kullanmanız gerekebilir.
 
 <details>
-    <summary style="font-size:1.25em"><strong>Other options</strong></summary>
+    <summary style="font-size:1.25em"><strong>Diğer seçenekler</strong></summary>
 
-- Prebuilt executable
-  - You can download the latest version from the
-    [Releases Tab](https://github.com/spotDL/spotify-downloader/releases)
-- On Termux
+- Hazır derlenmiş uygulama
+  - En son sürümü [Releases Tab](https://github.com/spotDL/spotify-downloader/releases) üzerinden indirebilirsiniz.
+- Termux üzerinde
   - `curl -L https://raw.githubusercontent.com/spotDL/spotify-downloader/master/scripts/termux.sh | sh`
 - Arch
-  - There is an [Arch User Repository (AUR) package](https://aur.archlinux.org/packages/spotdl/) for
-    spotDL.
+  - spotDL için bir [Arch User Repository (AUR) paketi](https://aur.archlinux.org/packages/spotdl/) mevcuttur.
 - Docker
-  - Build image:
-
+  - İmajı oluşturun:
     ```bash
     docker build -t spotdl .
     ```
-
-  - Launch container with spotDL parameters (see section below). You need to create mapped
-    volume to access song files
-
+  - spotDL parametreleriyle konteyneri başlatın (aşağıdaki bölüme bakınız). Şarkı dosyalarına erişmek için bir klasör eşlemesi oluşturmalısınız.
     ```bash
-    docker run --rm -v $(pwd):/music spotdl download [trackUrl]
+    docker run --rm -v $(pwd):/music spotdl download [parcaUrl]
     ```
-
- - Build from source
+- Kaynaktan derlemek
 	```bash
 	git clone https://github.com/spotDL/spotify-downloader && cd spotify-downloader
 	pip install poetry
 	poetry install
 	poetry run python3 scripts/build.py
 	```
-	An executable is created in `spotify-downloader/dist/`.
+	`spotify-downloader/dist/` klasöründe bir uygulama oluşturulur.
 
 </details>
 
+### FFmpeg Kurulumu
 
-### Installing FFmpeg
-
-FFmpeg is required for spotDL. If using FFmpeg only for spotDL, you can simply install FFmpeg to your spotDL installation directory:
+spotDL için FFmpeg gereklidir. Yalnızca spotDL için FFmpeg kullanacaksanız, FFmpeg’i doğrudan spotDL kurulum dizinine yükleyebilirsiniz:
 `spotdl --download-ffmpeg`
 
-We recommend the above option, but if you want to install FFmpeg system-wide,
-follow these instructions
+Yukarıdaki seçeneği öneriyoruz, ancak FFmpeg’i sistem genelinde kurmak isterseniz aşağıdaki talimatları izleyin:
 
-- [Windows Tutorial](https://windowsloop.com/install-ffmpeg-windows-10/)
+- [Windows Eğitimi](https://windowsloop.com/install-ffmpeg-windows-10/)
 - OSX - `brew install ffmpeg`
-- Linux - `sudo apt install ffmpeg` or use your distro's package manager
+- Linux - `sudo apt install ffmpeg` veya dağıtımınızın paket yöneticisini kullanın
 
-## Usage
+## Kullanım
 
-Using SpotDL without options::
+SpotDL’i seçenekler olmadan kullanmak için:
 ```sh
-spotdl [urls]
+spotdl [url’ler]
 ```
-You can run _spotDL_ as a package if running it as a script doesn't work:
+SpotDL’i bir paket olarak da çalıştırabilirsiniz:
 ```sh
-python -m spotdl [urls]
-```
-
-General usage:
-```sh
-spotdl [operation] [options] QUERY
+python -m spotdl [url’ler]
 ```
 
-There are different **operations** spotDL can perform. The *default* is `download`, which simply downloads the songs from YouTube and embeds metadata.
+Genel kullanım:
+```sh
+spotdl [işlem] [seçenekler] SORGULAMA
+```
 
-The **query** for spotDL is usually a list of Spotify URLs, but for some operations like **sync**, only a single link or file is required.
-For a list of all **options** use ```spotdl -h```
+spotDL’in farklı **işlemleri** vardır. *Varsayılan* işlem `download`’dır; bu sadece şarkıları YouTube’dan indirir ve meta verileri gömer.
+
+**Sorgu**, genellikle bir Spotify URL listesi olur, ancak **sync** gibi bazı işlemler için yalnızca bir bağlantı veya dosya gereklidir.
+Tüm **seçenekler** listesini görmek için ```spotdl -h``` komutunu kullanın.
 
 <details>
-<summary style="font-size:1em"><strong>Supported operations</strong></summary>
+<summary style="font-size:1em"><strong>Desteklenen işlemler</strong></summary>
 
-- `save`: Saves only the metadata from Spotify without downloading anything.
-    - Usage:
-        `spotdl save [query] --save-file {filename}.spotdl`
+- `save`: Sadece Spotify'dan meta verileri kaydeder, herhangi bir indirme yapmaz.
+    - Kullanım:
+        `spotdl save [sorgu] --save-file {dosyaAdi}.spotdl`
 
-- `web`: Starts a web interface instead of using the command line. However, it has limited features and only supports downloading single songs.
+- `web`: Komut satırı yerine bir web arayüzü başlatır. Ancak, sınırlı özelliklere sahiptir ve sadece tekli şarkı indirmeyi destekler.
 
-- `url`: Get direct download link for each song from the query.
-    - Usage:
-        `spotdl url [query]`
+- `url`: Sorgudaki her şarkı için doğrudan indirme linkini alır.
+    - Kullanım:
+        `spotdl url [sorgu]`
 
-- `sync`: Updates directories. Compares the directory with the current state of the playlist. Newly added songs will be downloaded and removed songs will be deleted. No other songs will be downloaded and no other files will be deleted.
+- `sync`: Dizinleri günceller. Dizin ile çalma listesinin mevcut durumunu karşılaştırır. Yeni eklenen şarkılar indirilir, kaldırılan şarkılar silinir. Diğer şarkılar indirilmeyecek veya silinmeyecektir.
+    - Kullanım:
+        `spotdl sync [sorgu] --save-file {dosyaAdi}.spotdl`
 
-    - Usage:
-        `spotdl sync [query] --save-file {filename}.spotdl`
+        Bu işlem yeni bir **sync** dosyası oluşturur, dizini daha sonra güncellemek için:
+        `spotdl sync {dosyaAdi}.spotdl`
 
-        This create a new **sync** file, to update the directory in the future, use:
-
-        `spotdl sync {filename}.spotdl`
-
-- `meta`: Updates metadata for the provided song files.
+- `meta`: Sağlanan şarkı dosyalarının meta verilerini günceller.
 
 </details>
 
-## Music Sourcing and Audio Quality
+## Müzik Kaynağı ve Ses Kalitesi
 
-spotDL uses YouTube as a source for music downloads. This method is used to avoid any issues related to downloading music from Spotify.
+spotDL, müzik indirme için YouTube’u kaynak olarak kullanır. Bu yöntem, Spotify’dan müzik indirme ile ilgili sorunların önüne geçmek için tercih edilir.
 
-> **Note**
-> Users are responsible for their actions and potential legal consequences. We do not support unauthorized downloading of copyrighted material and take no responsibility for user actions.
+> **Not**
+> Kullanıcılar kendi eylemlerinden ve olası hukuki sonuçlardan sorumludur. SpotDL, telif hakkı olan materyalin izinsiz indirilmesini desteklemez ve kullanıcıların eylemlerinden sorumlu değildir.
 
-### Audio Quality
+### Ses Kalitesi
 
-spotDL downloads music from YouTube and is designed to always download the highest possible bitrate; which is 128 kbps for regular users and 256 kbps for YouTube Music premium users.
+spotDL, müzikleri YouTube’dan indirir ve her zaman mümkün olan en yüksek bitrate’i indirmeye çalışır; normal kullanıcılar için 128 kbps, YouTube Music premium kullanıcıları için ise 256 kbps.
 
-Check the [Audio Formats](docs/usage.md#audio-formats-and-quality) page for more info.
+Daha fazla bilgi için [Ses Formatları](docs/usage.md#audio-formats-and-quality) sayfasına göz atın.
 
-## Contributing
+## Katkıda Bulunma
 
-Interested in contributing? Check out our [CONTRIBUTING.md](docs/CONTRIBUTING.md) to find
-resources around contributing along with a guide on how to set up a development environment.
+Katkıda bulunmak ister misiniz? [CONTRIBUTING.md](docs/CONTRIBUTING.md) dosyasına göz atarak katkı kaynaklarına ve geliştirme ortamının nasıl kurulacağına dair rehbere ulaşabilirsiniz.
 
-### Join our amazing community as a code contributor, and help accelerate
+### Harika topluluğumuza kod katkıcısı olarak katılın ve gelişimi hızlandırın!
 
 <br><br>
 <a href="https://github.com/spotDL/spotify-downloader/graphs/contributors">
   <img class="dark-light" src="https://contrib.rocks/image?repo=spotDL/spotify-downloader&anon=0&columns=25&max=100&r=true" />
 </a>
 
-## License
+## Lisans
 
-This project is Licensed under the [MIT](/LICENSE) License.
+Bu proje [MIT](/LICENSE) Lisansı ile lisanslanmıştır.
+
+## Çeviri
+
+Bu proje Burak Can Öğüt tarafından çevrilmiştir. 
