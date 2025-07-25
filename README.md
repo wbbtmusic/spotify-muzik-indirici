@@ -10,7 +10,7 @@
 
 **spotDL**, Spotify çalma listelerindeki şarkıları YouTube'da bulur ve indirir - albüm kapağı, şarkı sözleri ve meta verilerle birlikte.
 
-[![MIT Lisansı](https://img.shields.io/github/license/spotdl/spotify-downloader?color=44CC11&style=flat-square)](https://github.com/spotDL/spotify-downloader/blob/master/LICENSE)
+[![MIT Lisansı](https://img.shields.io/github/license/spotDL/spotify-downloader?color=44CC11&style=flat-square)](https://github.com/spotDL/spotify-downloader/blob/master/LICENSE)
 [![PyPI sürümü](https://img.shields.io/pypi/pyversions/spotDL?color=%2344CC11&style=flat-square)](https://pypi.org/project/spotdl/)
 [![PyPi indirme](https://img.shields.io/pypi/dw/spotDL?label=downloads@pypi&color=344CC11&style=flat-square)](https://pypi.org/project/spotdl/)
 ![Katkıda Bulunanlar](https://img.shields.io/github/contributors/spotDL/spotify-downloader?style=flat-square)
@@ -146,6 +146,8 @@ Katkıda bulunmak ister misiniz? [CONTRIBUTING.md](docs/CONTRIBUTING.md) dosyas�
 
 Bu proje [MIT](/LICENSE) Lisansı ile lisanslanmıştır.
 
+---
+
 ## Çeviri
 
-Bu proje Burak Can Öğüt tarafından çevrilmiştir. 
+Bu proje Burak Can Öğüt tarafından çevrilmiştir.
